@@ -25,13 +25,11 @@ public abstract class ClassifierAnalyzer extends Analyzer {
         return "J48";
     }
 
-    @Override
-    public Capabilities getCapabilities() {
-        Capabilities capabilities  = super.getCapabilities();
-        capabilities.and(classifier.getCapabilities());
-        return capabilities;
-    }
-
+    /*
+     * Although we have to (and can) assume classifier.listOptions() returns
+     * an Option enumeration, it is not specified in the method signature.
+     */
+    @SuppressWarnings("unchecked")
     @Override
     public Enumeration<Option> listOptions() {
         Vector<Option> newVector = new Vector<Option>(3);
@@ -44,18 +42,25 @@ public abstract class ClassifierAnalyzer extends Analyzer {
         newVector.addElement(new Option(
                 "\tFull name of base classifier.\n"
                         + "\t(default: " + defaultClassifierString() +")",
-                        "W", 1, "-W"));
+                "W", 1, "-W"));
 
         newVector.addElement(new Option(
                 "",
                 "", 0, "\nOptions specific to classifier "
-                        + classifier.getClass().getName() + ":"));
-        enu = classifier.listOptions();
+                + classifier.getClass().getName() + ":"));
+        enu = (Enumeration<Option>) classifier.listOptions();
         while (enu.hasMoreElements()) {
             newVector.addElement(enu.nextElement());
         }
 
         return newVector.elements();
+    }
+
+    @Override
+    public Capabilities getCapabilities() {
+        Capabilities capabilities  = super.getCapabilities();
+        capabilities.and(classifier.getCapabilities());
+        return capabilities;
     }
 
     @Override
