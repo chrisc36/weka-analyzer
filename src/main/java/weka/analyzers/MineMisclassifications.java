@@ -172,8 +172,8 @@ public class MineMisclassifications extends ClassifierAnalyzer {
          */
         public double evalRule(CachedRule rule, int size,
                                BitInstancesView view, double baseline) {
-            int[] results = view.evaluateRule(rule);
-            return ((results[1] + k*baseline) / (results[0] + k)) -
+            BitInstancesView.RuleEvaluation eval = view.evaluateRule(rule);
+            return ((eval.targetsCovered + k*baseline) / (eval.covered + k)) -
                     size * rulePenalty;
         }
 
@@ -222,11 +222,9 @@ public class MineMisclassifications extends ClassifierAnalyzer {
      */
     public String ruleReport(CachedRule rule, int size,
                              BitInstancesView data) {
-        int[] results = data.evaluateRule(rule);
-        int covered = results[0];
-        int targetsCovered = results[1];
+        BitInstancesView.RuleEvaluation eval = data.evaluateRule(rule);
         return String.format("Covered: %d\tTargets: %d\tAccuracy: %.3f\tScored: %.3f",
-                covered, targetsCovered, (double) targetsCovered/covered,
+                eval.covered, eval.targetsCovered, (double) eval.targetsCovered/eval.covered,
                 ruleEvaluator.evalRule(rule, size, data));
     }
 

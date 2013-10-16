@@ -10,6 +10,32 @@ import java.util.BitSet;
 public class BitInstancesView {
 
     /**
+     * Class containing the results of evaluating a rule on a
+     * BitInstancesView. Immutable.
+     */
+    public class RuleEvaluation {
+
+        /** Number of instances the rule covered */
+        public final int covered;
+
+        /** Number of targets the rule covered */
+        public final int targetsCovered;
+
+
+        /**
+         * Constructs a new RuleEvaluation.
+         *
+         * @param covered number of instances that were covered
+         * @param targetsCovered number of targets that were covered
+         */
+        public RuleEvaluation(int covered, int targetsCovered){
+            this.targetsCovered = targetsCovered;
+            this.covered = covered;
+
+        }
+    }
+
+    /**
      * BitSet where a bit is set iff the corresponding Instance is a target.
      * Targets will not be modified and so this can be a reference.
      */
@@ -88,16 +114,16 @@ public class BitInstancesView {
      * by the intersection of the instances covered by this and the given rule.
      *
      * @param rule CachedRule to evaluate
-     * @return int[] containing the number of instances covered and number of
+     * @return RuleEvaluation containing the number of instances covered and number of
      * targets covered
      */
-    public int[] evaluateRule(CachedRule rule) {
+    public RuleEvaluation evaluateRule(CachedRule rule) {
         BitSet coveredCopy = (BitSet) covered.clone();
         coveredCopy.and(rule.covered());
         int totalCovered = coveredCopy.cardinality();
         coveredCopy.and(targets);
-        int totalTargets = coveredCopy.cardinality();
-        return new int[] {totalCovered, totalTargets};
+        int targetsCovered = coveredCopy.cardinality();
+        return new RuleEvaluation(totalCovered, targetsCovered);
     }
 
     /**
