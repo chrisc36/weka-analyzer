@@ -1,6 +1,9 @@
 Weka Analyzer
 =========
-An extension to Weka 3.6 that adds an additional tab to Weka's explorer GUI called 'Analyze'. This tab provides a set of heterogeneous tools that analyze data and output statistics that can help the user complete machine learning tasks. The general aim of these tools is to help the user avoid common mistakes that can occur when applying machine learning and to provide insights into the data that can help users chose what classifier to use and what adjustments in their feature construction and data gathering processes might be helpful. This project was built as part of my honor's thesis at the University of Washington supervised by Oren Etzioni. I have since made a reasonable effort to ensure the code is readable and bug free, but the system has not undergone rigorous testing or extensive use so it is still liable to have bugs. My thesis paper, saved here as weka-analyzer-paper.pdf, gives a detailed overview of the motivations and implementation of this project. 
+An extension to Weka 3.6 that adds an additional tab to Weka's explorer GUI called 'Analyze'. This tab provides a set of heterogeneous tools that analyze data and output statistics that can help the user complete machine learning tasks. 
+
+#### About
+The general aim of analyzer and the tools it provides is to help the user avoid common mistakes that can occur when applying machine learning, and to provide insights into the data that can help users chose what classifier to use and what adjustments in their feature construction and data gathering processes might be helpful. This project was built as part of my honor's thesis at the University of Washington supervised by Oren Etzioni. I have since made a reasonable effort to ensure the code is readable and bug free, but the system has not undergone rigorous testing or extensive use so it is still liable to have bugs. My thesis paper, saved here as weka-analyzer-paper.pdf, gives a detailed overview of the motivations and implementation of this project. 
 
 #### Building
 
